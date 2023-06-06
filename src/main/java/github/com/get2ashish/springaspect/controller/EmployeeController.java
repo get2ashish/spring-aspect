@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/employee")
@@ -43,6 +44,15 @@ public class EmployeeController {
 
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
+        return ResponseEntity.ok(employeeRepository.save(employee));
+    }
+
+    @PutMapping
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) throws Exception {
+        //This condition is placed to throw exception so that we can test AfterThrowing advice
+        if (Objects.isNull(employee.getFirstName())) {
+            throw new Exception("Name format is invalid!");
+        }
         return ResponseEntity.ok(employeeRepository.save(employee));
     }
 }
