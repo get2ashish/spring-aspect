@@ -39,6 +39,11 @@ public class ControllerAspect {
         log.info("Controller class {} Method {} about to be executed with arguments {}", getTargetClassName(joinPoint), joinPoint.getSignature().getName(), joinPoint.getArgs());
     }
 
+    @Before(value = "@within(org.springframework.web.bind.annotation.RestController)")
+    public void beforeServiceAdvice(JoinPoint joinPoint) {
+        log.info("Before RestController class {} Method {} about to be executed with arguments {}", getTargetClassName(joinPoint), joinPoint.getSignature().getName(), joinPoint.getArgs());
+    }
+
 
     //After advice works for normal flow as well as exceptional flow (in case any exception happens in join point)
     @After(value = "execution(* github.com.get2ashish.springaspect.controller.EmployeeController.*(..))")
